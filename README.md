@@ -1,28 +1,169 @@
-# CropCast AI – Per-Acre Yield Forecasting
+# 🌱 CropCast AI — Crop Yield Forecasting System
 
-Stage-wise (0/30/60/90 days) yield forecasting with a 90% interval, total production and indicative revenue.
+CropCast AI is a web-based crop yield forecasting application designed to estimate crop production per acre using crop growth stages and agricultural input information. It provides an interactive dashboard for exploring yield forecasts, expected yield ranges, model performance metrics, and model comparisons.
 
-## Contents
-| Path | Purpose |
-|---|---|
-| `docs/index.html` | Static browser demo (simulator). Hosted on GitHub Pages. |
-| `app.py`, `simulator.py`, `templates/` | Flask app. Uses trained models in `models/` if present, else the simulator. |
-| `models/` | Put `stage_0.joblib`, `stage_30.joblib`, `stage_60.joblib`, `stage_90.joblib`, `intervals.json` here. |
+## 🚀 Live Demo
 
-> The data is synthetic. The online demo uses a simplified simulator; the trained gradient boosting models run in the Flask app.
+**Website:** [Open CropCast AI](https://srijamaradugula-byte.github.io/crop-yield-forecast-system-/)
 
-## Run locally
-```bash
-python -m venv .venv && source .venv/bin/activate   # Windows: .venv\Scripts\activate
-pip install -r requirements.txt
-python app.py        # http://localhost:5000
+The static demo is hosted using GitHub Pages.
+
+> **Note:** The static demo uses a browser-side simulator to demonstrate the forecasting workflow. The Flask backend supports model-based predictions when compatible trained models are available and correctly integrated.
+
+## ✨ Features
+
+- **Interactive Yield Forecasting:** Enter crop and field information to estimate yield per acre.
+- **Multiple Crops:** Supports Paddy, Maize, Chilli, Groundnut, and Cotton.
+- **Agricultural Inputs:** Includes district, season, soil type, irrigation, seed quality, sowing delay, fertilizer quantities, NDVI, rainfall, and pest incidence.
+- **Expected Yield Range:** Displays an estimated yield range alongside the forecast.
+- **Production and Revenue Estimates:** Calculates expected total production and indicative revenue based on the selected crop's reference price.
+- **Stage-wise Accuracy:** Displays model performance metrics at different crop growth stages.
+- **Model Insights:** Presents feature importance information.
+- **Model Comparison:** Displays comparative metrics for multiple machine learning models.
+- **Input Validation:** Checks supported input ranges and displays errors for invalid values.
+- **Responsive Interface:** Designed for use on desktop and mobile screens.
+- **Dark Theme:** Uses a dark interface with green accents.
+
+## 🛠️ Technologies Used
+
+- HTML5
+- CSS3
+- JavaScript
+- Python
+- Flask
+- scikit-learn
+- Joblib
+- Gunicorn
+
+The static demo uses HTML, CSS, and JavaScript. The backend uses Python and Flask.
+
+## 📁 Project Structure
+
+```text
+crop-yield-forecast-system-/
+├── docs/
+│   └── index.html
+├── templates/
+│   └── index.html
+├── models/
+│   └── .gitkeep
+├── app.py
+├── simulator.py
+├── requirements.txt
+├── Procfile
+├── render.yaml
+├── README.md
+└── .gitignore
 ```
 
-## Deploy
-**GitHub Pages (static demo):** Settings → Pages → Branch `main`, folder `/docs`.
+## 💻 Run the Flask Application Locally
 
-**Render (Flask):** New → Web Service → connect repo. Build `pip install -r requirements.txt`, start `gunicorn app:app` (or use `render.yaml`).
-Pin the same scikit-learn version you trained with so the joblib files load.
+### Prerequisites
 
-## Using your trained models
-Open `predict_with_model()` in `app.py` and make the DataFrame columns match your training features. Until then the simulator answers.
+- Python 3
+- Git
+- pip
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/srijamaradugula-byte/crop-yield-forecast-system-.git
+cd crop-yield-forecast-system-
+```
+
+### 2. Create a virtual environment
+
+**Windows:**
+
+```powershell
+python -m venv .venv
+.venv\Scripts\Activate.ps1
+```
+
+If PowerShell blocks activation, use Command Prompt:
+
+```bat
+.venv\Scripts\activate.bat
+```
+
+### 3. Install dependencies
+
+```bash
+python -m pip install -r requirements.txt
+```
+
+### 4. Start the application
+
+```bash
+python -m flask --app app run --debug
+```
+
+Open `http://127.0.0.1:5000` in your browser.
+
+If you prefer the deployment-style server, install the requirements and run:
+
+```bash
+gunicorn app:app
+```
+
+## 🌐 Deployment
+
+### GitHub Pages — Static Demo
+
+1. Open the repository on GitHub.
+2. Navigate to **Settings → Pages**.
+3. Select **Deploy from a branch**.
+4. Choose the `main` branch and `/docs` folder.
+5. Save the configuration and wait for deployment.
+
+### Render — Flask Backend
+
+The repository includes a `render.yaml` configuration intended for deployment on Render.
+
+1. Sign in to Render.
+2. Connect the GitHub account containing the repository.
+3. Create a Web Service from this repository.
+4. Review the deployment configuration.
+5. Deploy and inspect the logs.
+
+The backend is configured to use Gunicorn and expose a health endpoint at `/health`. Verify the deployment and API endpoints after publishing.
+
+## 🤖 Machine Learning Model Integration
+
+The backend can use compatible trained model files when they are available and correctly configured.
+
+Potential model artifacts include:
+
+- `stage_0.joblib`
+- `stage_30.joblib`
+- `stage_60.joblib`
+- `stage_90.joblib`
+- `intervals.json`
+
+These files must be generated by the training pipeline and placed in the expected location. The model-loading logic and input features in `app.py` must match the actual training pipeline.
+
+If the trained models are unavailable or not integrated, the application can fall back to the simulator, as implemented in the backend.
+
+## ⚠️ Limitations
+
+- The GitHub Pages demo uses simulated forecasting relationships rather than executing trained machine learning models.
+- Forecasts and expected ranges from the simulator are illustrative and should not be treated as validated agricultural advice.
+- Revenue estimates use illustrative reference prices and do not represent guaranteed market prices or profit.
+- Actual model performance depends on the training data, validation methodology, and correct integration of the trained artifacts.
+- The static website and Flask backend are deployed separately.
+
+## 🔮 Future Enhancements
+
+- Integrate and validate trained crop-yield prediction models.
+- Connect the static interface to the Flask prediction API.
+- Incorporate reliable weather and soil data sources.
+- Improve prediction explanations and uncertainty estimates.
+- Evaluate the system using independent agricultural datasets.
+
+## 📄 License
+
+No license has been specified yet. All rights are reserved by default unless a license is added to the repository.
+
+---
+
+**CropCast AI** — Exploring smarter crop-yield forecasting through data and machine learning.
