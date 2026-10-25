@@ -1,0 +1,7 @@
+flask>=3.0
+gunicorn>=22.0
+# Needed only when you add your trained models to models/ (pin to your training versions):
+numpy
+pandas
+scikit-learn
+joblib
